@@ -68,6 +68,11 @@ public class VEPTranscriptAnnotation {
             }
         }
 
+        //substitute for HGVS recommendation
+        if (this.hgvsProtein.equals("p.%3D")){
+            this.hgvsProtein = "p.=";
+        }
+
         if (fields[14].equals("-")) {
             this.polyPhenResult = "";
             this.polyphenScore = 0;
