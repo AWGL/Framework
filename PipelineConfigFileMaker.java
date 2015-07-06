@@ -1,5 +1,6 @@
 package nhs.genetics.cardiff;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
@@ -34,7 +35,7 @@ public class PipelineConfigFileMaker {
 
         for (int n = 0; n < illuminaSampleSheetFile.getSampleSheetRecords().size(); ++n) {
 
-            try (PrintWriter writer = new PrintWriter(illuminaSampleSheetFile.getSampleSheetRecords().get(n).getSampleID() + ".variables")){
+            try (PrintWriter writer = new PrintWriter(new File(illuminaRunParametersFile.getAnalysisFolder(), illuminaSampleSheetFile.getSampleSheetRecords().get(n).getSampleID() + ".variables"))){
 
                 //write variable files
                 writer.print("#Illumina Variables File\n");
@@ -48,7 +49,7 @@ public class PipelineConfigFileMaker {
                 writer.print("SampleID=" + illuminaSampleSheetFile.getSampleSheetRecords().get(n).getSampleID() + "\n");
 
                 writer.print("\n#FASTQ Filenames\n");
-                writer.print("Read1Fastq=" + illuminaSampleSheetFile.getSampleSheetRecords().get(n).getSampleID() + "_S" + (n+1) + "_L001_R1_001.fastq.gz\n");
+                writer.print("Read1Fastq=" + illuminaSampleSheetFile.getSampleSheetRecords().get(n).getSampleID() + "_S" + (n + 1) + "_L001_R1_001.fastq.gz\n");
                 writer.print("Read2Fastq=" + illuminaSampleSheetFile.getSampleSheetRecords().get(n).getSampleID() + "_S" + (n + 1) + "_L001_R2_001.fastq.gz\n");
 
                 if (!illuminaSampleSheetFile.getSampleSheetRecords().get(n).getSampleProject().equals("")){
