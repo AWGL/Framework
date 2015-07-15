@@ -35,7 +35,7 @@ public class PipelineConfigFileMaker {
 
         for (int n = 0; n < illuminaSampleSheetFile.getSampleSheetRecords().size(); ++n) {
 
-            try (PrintWriter writer = new PrintWriter(new File(illuminaRunParametersFile.getAnalysisFolder(), illuminaSampleSheetFile.getSampleSheetRecords().get(n).getSampleID() + ".variables"))){
+            try (PrintWriter writer = new PrintWriter(illuminaSampleSheetFile.getSampleSheetRecords().get(n).getSampleID() + ".variables")){
 
                 //write variable files
                 writer.print("#Illumina Variables File\n");

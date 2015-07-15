@@ -1,12 +1,7 @@
 package nhs.genetics.cardiff;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,19 +19,32 @@ public class IlluminaSAVFile {
         this.illuminaSAVFile = illuminaSAVFile;
     }
 
-    private static double median(ArrayList<Double> values)
-    {
-        Collections.sort(values);
+    //TODO check arguments
+    private void callSAV(){
 
-        if (values.size() % 2 == 1)
-            return values.get((values.size()+1)/2-1);
-        else
-        {
-            double lower = values.get(values.size()/2-1);
-            double upper = values.get(values.size()/2);
+        log.log(Level.INFO, "Calling sequence analysis viewer ...");
 
-            return (lower + upper) / 2.0;
+        try{
+
+            ProcessBuilder builder = new ProcessBuilder(
+                    Parameters.getSequenceAnalysisViewerPath.toString(),
+                    "-t", "csv"
+            );
+
+            Process process = builder.start();
+
+            if (process.waitFor() != 0){
+                throw new RuntimeException("Problem invoking Sequence Analysis Viewer, exit code: " + process.exitValue());
+            }
+
+        } catch (IOException e){
+            log.log(Level.SEVERE, e.toString());
+        } catch (RuntimeException e){
+            log.log(Level.SEVERE, e.toString());
+        } catch (InterruptedException e){
+            log.log(Level.SEVERE, e.toString());
         }
+
     }
 
     private void parseSAVFile(){
@@ -92,8 +100,19 @@ public class IlluminaSAVFile {
 
     }
 
-    private void extractSAVMetrics(){
-        //TODO: call SAV and generate table
+    private static double median(ArrayList<Double> values)
+    {
+        Collections.sort(values);
+
+        if (values.size() % 2 == 1)
+            return values.get((values.size()+1)/2-1);
+        else
+        {
+            double lower = values.get(values.size()/2-1);
+            double upper = values.get(values.size()/2);
+
+            return (lower + upper) / 2.0;
+        }
     }
 
     public HashMap<Integer, Double> getPercentGreaterThanQ30ByCycleMedian() {

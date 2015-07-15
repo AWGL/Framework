@@ -227,6 +227,7 @@ public class IlluminaSampleSheetFile {
 
         for (int n = 0; n < investigatorFields.length; ++n){
             investigatorFields[n].trim(); //trim whitespace
+            investigatorFields[n].toUpperCase(); //remove case sensitive
         }
 
         return investigatorFields;
