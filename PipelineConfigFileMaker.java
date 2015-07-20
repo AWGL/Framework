@@ -22,7 +22,7 @@ public class PipelineConfigFileMaker {
         for (IlluminaSampleSheetRecord record : illuminaSampleSheetFile.getSampleSheetRecords())
         {
             analysisDirs.append('"');
-            analysisDirs.append(Parameters.getCvxgenResultsRootDir());
+            analysisDirs.append("/data/results");
             analysisDirs.append("/");
             analysisDirs.append(illuminaRunParametersFile.getRunIdentifier());
             analysisDirs.append('/');

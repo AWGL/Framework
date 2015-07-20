@@ -76,7 +76,8 @@ public class IlluminaRunParametersFile {
         String[] split;
 
         split = searchXmlFile("FlowcellRFIDTag", "SerialNumber", runParametersFile).split("-");
-        flowcellSerialNo = split[1];
+        //flowcellSerialNo = split[1];
+        flowcellSerialNo = "";
         flowcellPartNo = searchXmlFile("FlowcellRFIDTag", "PartNumber", runParametersFile);
         split = searchXmlFile("FlowcellRFIDTag", "ExpirationDate", runParametersFile).split("T");
 
@@ -120,7 +121,7 @@ public class IlluminaRunParametersFile {
         try {
             runStartDate = basicFormat.parse(searchXmlFile("RunParameters", "RunStartDate", runParametersFile));
         } catch (Exception e){
-            log.log(Level.SEVERE, "Could not convert data string: " + e.getMessage());
+            log.log(Level.WARNING, "Could not convert data string: " + e.getMessage());
         }
 
         localRootRunFolder = new File (searchXmlFile("RunParameters", "OutputFolder", runParametersFile));
