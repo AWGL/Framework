@@ -65,16 +65,6 @@ public class GenomeVariant {
 
     }
 
-    public String getVEPVariant(){
-        if (ref.length() > 1 && alt.length() == 1) { //del
-            return contig + ":" + pos + "-";
-        } else if (ref.length() == 1 && alt.length() > 1){ //ins
-            return contig + ":" + pos + alt.substring(1);
-        } else {
-            return contig + ":" + pos + alt; //TODO
-        }
-    }
-
     public String getContig(){
         return contig;
     }
