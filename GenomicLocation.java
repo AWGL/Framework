@@ -12,29 +12,29 @@ public class GenomicLocation {
 
     private static final Logger log = Logger.getLogger(GenomicLocation.class.getName());
 
-    private String chromosome, name;
+    private String contig, name;
     private int startPosition, endPosition, strand;
 
-    public GenomicLocation(String chromosome, int startPosition, int endPosition){
-        this.chromosome = chromosome;
+    public GenomicLocation(String contig, int startPosition, int endPosition){
+        this.contig = contig;
         this.startPosition = startPosition;
         this.endPosition = endPosition;
     }
-    public GenomicLocation(String chromosome, int startPosition, int endPosition, String name){
-        this.chromosome = chromosome;
+    public GenomicLocation(String contig, int startPosition, int endPosition, String name){
+        this.contig = contig;
         this.startPosition = startPosition;
         this.endPosition = endPosition;
         this.name = name;
     }
-    public GenomicLocation(String chromosome, int startPosition, int endPosition, String name, int strand){
-        this.chromosome = chromosome;
+    public GenomicLocation(String contig, int startPosition, int endPosition, String name, int strand){
+        this.contig = contig;
         this.startPosition = startPosition;
         this.endPosition = endPosition;
         this.name = name;
         this.strand = strand;
     }
-    public GenomicLocation(String chromosome, int startPosition){
-        this.chromosome = chromosome;
+    public GenomicLocation(String contig, int startPosition){
+        this.contig = contig;
         this.startPosition = startPosition;
         this.endPosition = endPosition;
         this.name = name;
@@ -56,14 +56,14 @@ public class GenomicLocation {
         String lastStartChrom = "";
 
         //sort bases by chrom pos
-        Collections.sort(bases, GenomicLocation.chromosomeComparator);
+        Collections.sort(bases, GenomicLocation.contigComparator);
 
         //make windows of overlapping regions
         for (int j = 0; j < bases.size(); ++j){ //loop over bases
 
             if (j == 0) { //first base
 
-                lastStartChrom = bases.get(j).getChromosome();
+                lastStartChrom = bases.get(j).getContig();
                 lastStartPos = bases.get(j).getStartPosition();
                 lastEndPos = bases.get(j).getStartPosition();
 
@@ -74,11 +74,11 @@ public class GenomicLocation {
 
             } else { //not first or last base
 
-                if (!bases.get(j).getChromosome().equals(lastStartChrom)) { //different chromosome -- start new window
+                if (!bases.get(j).getContig().equals(lastStartChrom)) { //different contig -- start new window
 
                     regions.add(new GenomicLocation(lastStartChrom, lastStartPos, lastEndPos));
 
-                    lastStartChrom = bases.get(j).getChromosome();
+                    lastStartChrom = bases.get(j).getContig();
                     lastStartPos = bases.get(j).getStartPosition();
                     lastEndPos = bases.get(j).getStartPosition();
 
@@ -116,8 +116,8 @@ public class GenomicLocation {
         startPosition -= 1;
     }
 
-    public String getChromosome() {
-        return chromosome;
+    public String getContig() {
+        return contig;
     }
     public String getName() {
         return name;
@@ -135,8 +135,8 @@ public class GenomicLocation {
     public void setRightPadding(int noBases){
         endPosition = (endPosition + noBases);
     }
-    public void setChromosome(String chromosome) {
-        this.chromosome = chromosome;
+    public void setContig(String contig) {
+        this.contig = contig;
     }
     public void setName(String name) {
         this.name = name;
@@ -151,16 +151,16 @@ public class GenomicLocation {
         this.strand = strand;
     }
 
-    /*Comparator for sorting the list by chromosome and position*/
-    public static Comparator<GenomicLocation> chromosomeComparator = new Comparator<GenomicLocation>() {
+    /*Comparator for sorting the list by contig and position*/
+    public static Comparator<GenomicLocation> contigComparator = new Comparator<GenomicLocation>() {
         public int compare(GenomicLocation g1, GenomicLocation g2) {
             int returnVal = 0;
 
-            if (isInteger(g1.getChromosome()) && isInteger(g2.getChromosome())){ //both chromosomes are numeric
+            if (isInteger(g1.getContig()) && isInteger(g2.getContig())){ //both contigs are numeric
 
-                if (Integer.parseInt(g1.getChromosome()) > Integer.parseInt(g2.getChromosome())) {
+                if (Integer.parseInt(g1.getContig()) > Integer.parseInt(g2.getContig())) {
                     returnVal = 1;
-                } else if (Integer.parseInt(g1.getChromosome()) < Integer.parseInt(g2.getChromosome())) {
+                } else if (Integer.parseInt(g1.getContig()) < Integer.parseInt(g2.getContig())) {
                     returnVal =  -1;
                 } else if (g1.getStartPosition() > g2.getStartPosition()){
                     returnVal =  1;
@@ -170,8 +170,8 @@ public class GenomicLocation {
 
             } else {
 
-                if (g1.getChromosome().compareTo(g2.getChromosome()) != 0){ //chromosomes are string
-                    returnVal = g1.getChromosome().compareTo(g2.getChromosome());
+                if (g1.getContig().compareTo(g2.getContig()) != 0){ //contigs are string
+                    returnVal = g1.getContig().compareTo(g2.getContig());
                 } else if (g1.getStartPosition() > g2.getStartPosition()){
                     returnVal =  1;
                 } else if (g1.getStartPosition() < g2.getStartPosition()){
@@ -193,14 +193,14 @@ public class GenomicLocation {
         if (startPosition != that.startPosition) return false;
         if (endPosition != that.endPosition) return false;
         if (strand != that.strand) return false;
-        if (chromosome != null ? !chromosome.equals(that.chromosome) : that.chromosome != null) return false;
+        if (contig != null ? !contig.equals(that.contig) : that.contig != null) return false;
         return !(name != null ? !name.equals(that.name) : that.name != null);
 
     }
 
     @Override
     public int hashCode() {
-        int result = chromosome != null ? chromosome.hashCode() : 0;
+        int result = contig != null ? contig.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + startPosition;
         result = 31 * result + endPosition;
