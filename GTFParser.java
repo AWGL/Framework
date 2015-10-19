@@ -26,6 +26,8 @@ public class GTFParser {
 
     public void parseGTFFile(){
 
+        log.log(Level.INFO, "Parsing GTF file: " + gtfFilePath);
+
         String line;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(gtfFilePath))){
@@ -33,7 +35,7 @@ public class GTFParser {
             while ((line = reader.readLine()) != null) {
 
                 //skip headers
-                if (!Pattern.matches("^#", line))
+                if (Pattern.matches("^#.*", line))
                 {
                     headers.add(line);
                     continue;
