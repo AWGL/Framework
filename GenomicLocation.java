@@ -131,6 +131,12 @@ public class GenomicLocation {
     public int getStrand() {
         return strand;
     }
+    public String getConcatenatedLocation(){
+        return contig + ":" + startPosition + "-" + endPosition;
+    }
+    public String getConcatenatedPosition(){
+        return contig + ":" + startPosition;
+    }
 
     public void setRightPadding(int noBases){
         endPosition = (endPosition + noBases);
