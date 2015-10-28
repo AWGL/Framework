@@ -16,7 +16,7 @@ public class VEPAnnotationv82 {
 
     private boolean canonical = false;
 
-    private int alleleNumber, distance, strand;
+    private int distance, strand;
 
     private String record, allele, impact, symbol, gene, featureType,feature, biotype, exon, intron, hgvsCoding, hgvsProtein,
             cdnaPosition, cdsPosition, proteinPosition, aminoAcids, codons, variantClass, symbolSource, hgncId, tsl, ccds,
@@ -107,130 +107,123 @@ public class VEPAnnotationv82 {
                 }
             }
             if (!fields[18].equals("")) {
-                this.alleleNumber = Integer.parseInt(fields[18]);
+                this.distance = Integer.parseInt(fields[18]);
             }
             if (!fields[19].equals("")) {
-                this.distance = Integer.parseInt(fields[19]);
+                this.strand = Integer.parseInt(fields[19]);
             }
             if (!fields[20].equals("")) {
-                this.strand = Integer.parseInt(fields[20]);
+                this.variantClass = fields[20];
             }
             if (!fields[21].equals("")) {
-                this.variantClass = fields[21];
+                this.symbolSource = fields[21];
             }
             if (!fields[22].equals("")) {
-                this.symbolSource = fields[22];
+                this.hgncId = fields[22];
             }
-            if (!fields[23].equals("")) {
-                this.hgncId = fields[23];
-            }
-            if (!fields[24].equals("") && fields[24].equals("YES")) {
+            if (!fields[23].equals("") && fields[23].equals("YES")) {
                 this.canonical = true;
             }
+            if (!fields[24].equals("")) {
+                this.tsl = fields[24];
+            }
             if (!fields[25].equals("")) {
-                this.tsl = fields[25];
+                this.ccds = fields[25];
             }
             if (!fields[26].equals("")) {
-                this.ccds = fields[26];
+                this.ensp = fields[26];
             }
             if (!fields[27].equals("")) {
-                this.ensp = fields[27];
+                this.swissprot = fields[27];
             }
             if (!fields[28].equals("")) {
-                this.swissprot = fields[28];
-            }
-            if (!fields[29].equals("")) {
-                for (String trembl : fields[29].split("&")){
+                for (String trembl : fields[28].split("&")){
                     this.trembls.add(trembl);
                 }
             }
+            if (!fields[29].equals("")) {
+                this.uniparc = fields[29];
+            }
             if (!fields[30].equals("")) {
-                this.uniparc = fields[30];
+                this.genePheno = fields[30];
             }
             if (!fields[31].equals("")) {
-                this.genePheno = fields[31];
+                String[] subFields = fields[31].split("\\(");
+                this.sift = subFields[0];
             }
             if (!fields[32].equals("")) {
                 String[] subFields = fields[32].split("\\(");
-                this.sift = subFields[0];
-            }
-            if (!fields[33].equals("")) {
-                String[] subFields = fields[33].split("\\(");
                 this.polyPhen = subFields[0];
             }
-            if (!fields[34].equals("")) {
-                for (String domain : fields[34].split("&")){
+            if (!fields[33].equals("")) {
+                for (String domain : fields[33].split("&")){
                     this.domains.add(domain);
                 }
             }
+            if (!fields[34].equals("")) {
+                this.hgvsOffset = fields[34];
+            }
             if (!fields[35].equals("")) {
-                this.hgvsOffset = fields[35];
+                this.gMaf = fields[35];
             }
             if (!fields[36].equals("")) {
-                this.gMaf = fields[36];
+                this.afrMaf = fields[36];
             }
             if (!fields[37].equals("")) {
-                this.afrMaf = fields[37];
+                this.amrMaf = fields[37];
             }
             if (!fields[38].equals("")) {
-                this.amrMaf = fields[38];
+                this.easMaf = fields[38];
             }
             if (!fields[39].equals("")) {
-                this.easMaf = fields[39];
+                this.eurMaf = fields[39];
             }
             if (!fields[40].equals("")) {
-                this.eurMaf = fields[40];
+                this.sasMaf = fields[40];
             }
             if (!fields[41].equals("")) {
-                this.sasMaf = fields[41];
+                this.aaMaf = fields[41];
             }
             if (!fields[42].equals("")) {
-                this.aaMaf = fields[42];
+                this.eaMaf = fields[42];
             }
             if (!fields[43].equals("")) {
-                this.eaMaf = fields[43];
-            }
-            if (!fields[44].equals("")) {
-                for (String clinSig : fields[44].split("&")){
+                for (String clinSig : fields[43].split("&")){
                     this.clinSigs.add(clinSig);
                 }
             }
+            if (!fields[44].equals("")) {
+                this.somatic = fields[44];
+            }
             if (!fields[45].equals("")) {
-                this.somatic = fields[45];
+                this.pheno = fields[45];
             }
             if (!fields[46].equals("")) {
-                this.pheno = fields[46];
-            }
-            if (!fields[47].equals("")) {
-                for (String pubmed : fields[47].split("&")){
+                for (String pubmed : fields[46].split("&")){
                     this.pubmeds.add(pubmed);
                 }
             }
+            if (!fields[47].equals("")) {
+                this.motifName = fields[47];
+            }
             if (!fields[48].equals("")) {
-                this.motifName = fields[48];
+                this.motifPos = fields[48];
             }
             if (!fields[49].equals("")) {
-                this.motifPos = fields[49];
+                this.highInfPos = fields[49];
             }
             if (!fields[50].equals("")) {
-                this.highInfPos = fields[50];
-            }
-            if (!fields[51].equals("")) {
-                this.motifScoreChange = fields[51];
+                this.motifScoreChange = fields[50];
             }
 
         } catch (ArrayIndexOutOfBoundsException e) {
-            log.log(Level.FINE, e.getMessage());
+            log.log(Level.INFO, "Annotation record incomplete: " + e.getMessage());
         }
 
     }
 
     public boolean isCanonical() {
         return canonical;
-    }
-
-    public int getAlleleNumber() {
-        return alleleNumber;
     }
 
     public int getDistance() {
@@ -409,8 +402,8 @@ public class VEPAnnotationv82 {
         return motifScoreChange;
     }
 
-    public HashSet<String> getPubmeds() {
-        return pubmeds;
+    public String[] getPubmeds() {
+        return pubmeds.toArray(new String[pubmeds.size()]);
     }
 
     public HashSet<String> getDomains() {
@@ -441,7 +434,6 @@ public class VEPAnnotationv82 {
         VEPAnnotationv82 that = (VEPAnnotationv82) o;
 
         if (canonical != that.canonical) return false;
-        if (alleleNumber != that.alleleNumber) return false;
         if (distance != that.distance) return false;
         if (strand != that.strand) return false;
         if (record != null ? !record.equals(that.record) : that.record != null) return false;
@@ -502,7 +494,6 @@ public class VEPAnnotationv82 {
     @Override
     public int hashCode() {
         int result = (canonical ? 1 : 0);
-        result = 31 * result + alleleNumber;
         result = 31 * result + distance;
         result = 31 * result + strand;
         result = 31 * result + (record != null ? record.hashCode() : 0);
