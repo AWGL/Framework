@@ -217,7 +217,7 @@ public class VEPAnnotationv82 {
             }
 
         } catch (ArrayIndexOutOfBoundsException e) {
-            log.log(Level.INFO, "Annotation record incomplete: " + e.getMessage());
+            log.log(Level.FINE, "Annotation record incomplete: " + e.getMessage());
         }
 
     }
