@@ -12,9 +12,11 @@ public class VEPAnnotationv79 {
 
     private static final Logger log = Logger.getLogger(VEPAnnotationv79.class.getName());
 
+    private boolean canonical;
+    private int strand;
     private String record, allele, impact,	symbol,	gene, featureType, feature, biotype, exon, intron, hgvsCoding, hgvsProtein,
-    cdnaPosition, cdsPosition, proteinPosition, aminoAcids, codons, existingVariation, distance, strand, symbolSource, hgncId,
-    canonical, tsl, ccds, ensp, swissprot, trembl, uniparc, sift, polyphen, domains, gMaf, afrMaf, amrMaf, asnMaf, easMaf,
+    cdnaPosition, cdsPosition, proteinPosition, aminoAcids, codons, existingVariation, distance, symbolSource, hgncId,
+    tsl, ccds, ensp, swissprot, trembl, uniparc, sift, polyPhen, domains, gMaf, afrMaf, amrMaf, asnMaf, easMaf,
     eurMaf, sasMaf, aaMaf, eaMaf, somatic, pubmed, motifName, motifPos, highInfPos, motifScoreChange;
 
     private HashSet<String> consequences = new HashSet<>();
@@ -98,7 +100,7 @@ public class VEPAnnotationv79 {
                 this.distance = fields[18];
             }
             if (!fields[19].equals("")) {
-                this.strand = fields[19];
+                this.strand = Integer.parseInt(fields[19]);
             }
             if (!fields[20].equals("")) {
                 this.symbolSource = fields[20];
@@ -106,8 +108,10 @@ public class VEPAnnotationv79 {
             if (!fields[21].equals("")) {
                 this.hgncId = fields[21];
             }
-            if (!fields[22].equals("")) {
-                this.canonical = fields[22];
+            if (fields[22].equals("YES")) {
+                this.canonical = true;
+            } else {
+                this.canonical = false;
             }
             if (!fields[23].equals("")) {
                 this.tsl = fields[23];
@@ -133,7 +137,7 @@ public class VEPAnnotationv79 {
             }
             if (!fields[30].equals("")) {
                 String[] subFields = fields[30].split("\\(");
-                this.polyphen = subFields[0];
+                this.polyPhen = subFields[0];
             }
             if (!fields[31].equals("")) {
                 this.domains = fields[31];
@@ -249,7 +253,7 @@ public class VEPAnnotationv79 {
     public String getDistance() {
         return distance;
     }
-    public String getStrand() {
+    public int getStrand() {
         return strand;
     }
     public String getSymbolSource() {
@@ -258,7 +262,7 @@ public class VEPAnnotationv79 {
     public String getHgncId() {
         return hgncId;
     }
-    public String getCanonical() {
+    public boolean isCanonical() {
         return canonical;
     }
     public String getTsl() {
@@ -282,8 +286,8 @@ public class VEPAnnotationv79 {
     public String getSift() {
         return sift;
     }
-    public String getPolyphen() {
-        return polyphen;
+    public String getPolyPhen() {
+        return polyPhen;
     }
     public String getDomains() {
         return domains;
