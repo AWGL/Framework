@@ -1,5 +1,6 @@
 package nhs.genetics.cardiff;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,8 +17,9 @@ public class VEPAnnotationv79 {
     private int strand;
     private String record, allele, impact,	symbol,	gene, featureType, feature, biotype, exon, intron, hgvsCoding, hgvsProtein,
     cdnaPosition, cdsPosition, proteinPosition, aminoAcids, codons, existingVariation, distance, symbolSource, hgncId,
-    tsl, ccds, ensp, swissprot, trembl, uniparc, sift, polyPhen, domains, gMaf, afrMaf, amrMaf, asnMaf, easMaf,
+    tsl, ccds, ensp, swissprot, trembl, uniparc, sift, polyPhen, gMaf, afrMaf, amrMaf, asnMaf, easMaf,
     eurMaf, sasMaf, aaMaf, eaMaf, somatic, pubmed, motifName, motifPos, highInfPos, motifScoreChange;
+    private HashMap<String, HashSet<String>> domains = new HashMap<>();
 
     private HashSet<String> consequences = new HashSet<>();
     private HashSet<String> clinSigs = new HashSet<>();
@@ -140,7 +142,26 @@ public class VEPAnnotationv79 {
                 this.polyPhen = subFields[0];
             }
             if (!fields[31].equals("")) {
-                this.domains = fields[31];
+
+                try {
+
+                    //loop over domain acc identifier
+                    for (String domain : fields[31].split("&")){
+
+                        //split provider from identifier
+                        String[] split = domain.split(":");
+
+                        if (!this.domains.containsKey(split[0])){
+                            this.domains.put(split[0], new HashSet<String>());
+                        }
+
+                        this.domains.get(split[0]).add(split[1]);
+                    }
+
+                } catch (Exception e) {
+                    log.log(Level.INFO, e.getMessage());
+                }
+
             }
             if (!fields[32].equals("")) {
                 this.gMaf = fields[32];
@@ -289,7 +310,7 @@ public class VEPAnnotationv79 {
     public String getPolyPhen() {
         return polyPhen;
     }
-    public String getDomains() {
+    public HashMap<String, HashSet<String>> getDomains() {
         return domains;
     }
     public String getgMaf() {
