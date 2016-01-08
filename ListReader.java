@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,12 +17,14 @@ public class ListReader {
     private static final Logger log = Logger.getLogger(ListReader.class.getName());
     private File filePath;
     private ArrayList<String> elements = new ArrayList<String>();
+    private HashSet<String> uniqueElements = new HashSet<String>();
 
     public ListReader(File filePath){
         this.filePath = filePath;
     }
 
     public void parseListReader(){
+        log.log(Level.INFO, "Parsing list");
 
         String line;
 
@@ -29,6 +32,7 @@ public class ListReader {
 
             while ((line = bReader.readLine()) != null) {
                 elements.add(line);
+                uniqueElements.add(line);
             }
 
             bReader.close();
@@ -45,6 +49,9 @@ public class ListReader {
     }
     public String getFileName(){
         return filePath.getName();
+    }
+    public HashSet<String> getUniqueElements() {
+        return uniqueElements;
     }
 
 }

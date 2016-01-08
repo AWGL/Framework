@@ -26,7 +26,7 @@ public class GTFParser {
 
     public void parseGTFFile(){
 
-        log.log(Level.INFO, "Parsing GTF file: " + gtfFilePath);
+        log.log(Level.INFO, "Parsing GTF file");
 
         String line;
 

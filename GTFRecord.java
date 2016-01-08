@@ -1,12 +1,19 @@
 package nhs.genetics.cardiff;
 
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Created by ml on 13/10/2015.
  */
 public class GTFRecord {
 
-    private String gtfRecord, source, feature, attribute;
+    private static final Logger log = Logger.getLogger(GTFRecord.class.getName());
+
+    private String gtfRecord, source, feature;
     private GenomicLocation genomicLocation;
+    private HashMap<String, String> attributes = new HashMap<>();
     private Integer frame;
     private Double score;
     private Boolean strand;
@@ -47,10 +54,16 @@ public class GTFRecord {
                 frame = null;
             }
 
-            attribute = fields[8];
+            for (String iter : fields[8].split(";")){
+
+                String keyValuePair = iter.trim();
+
+                String[] fields2 = keyValuePair.split(" ");
+                attributes.put(fields2[0].replace("\"", ""), fields2[1].replace("\"", ""));
+            }
 
         } catch (ArrayIndexOutOfBoundsException e){
-            System.out.println(gtfRecord);
+            log.log(Level.INFO, "Incorrect field number: " + gtfRecord);
         }
 
     }
@@ -60,9 +73,6 @@ public class GTFRecord {
     }
     public String getFeature() {
         return feature;
-    }
-    public String getAttribute() {
-        return attribute;
     }
     public GenomicLocation getGenomicLocation() {
         return genomicLocation;
@@ -76,5 +86,7 @@ public class GTFRecord {
     public Boolean getStrand() {
         return strand;
     }
-
+    public HashMap<String, String> getAttributes() {
+        return attributes;
+    }
 }
