@@ -17,12 +17,11 @@ public class VEPAnnotationv82 {
 
     private boolean canonical;
     private int strand;
-    private String record, allele, impact,	symbol,	gene, featureType, feature, biotype, exon, intron, hgvsCoding, hgvsProtein,
-    cdnaPosition, cdsPosition, proteinPosition, aminoAcids, codons, existingVariation, distance, symbolSource, hgncId,
-    tsl, ccds, ensp, swissprot, trembl, uniparc, sift, polyPhen, gMaf, afrMaf, amrMaf, easMaf,
-    eurMaf, sasMaf, aaMaf, eaMaf, somatic, motifName, motifPos, highInfPos, motifScoreChange, variantClass, genePheno, hgvsOffset, pheno;
+    private String record, allele, impact,	symbol,	gene, featureType, feature, biotype, exon, intron, hgvsc, hgvsp,
+            cdnaPosition, cdsPosition, proteinPosition, aminoAcids, codons, existingVariation, distance, symbolSource, hgncId,
+            tsl, ccds, ensp, swissprot, trembl, uniparc, sift, polyPhen, gMaf, afrMaf, amrMaf, easMaf, eurMaf, sasMaf, aaMaf,
+            eaMaf, somatic, motifName, motifPos, highInfPos, motifScoreChange, variantClass, genePheno, hgvsOffset, pheno;
     private HashMap<String, HashSet<String>> domains = new HashMap<>();
-
     private HashSet<String> pubmedIds = new HashSet<>();
     private HashSet<String> consequences = new HashSet<>();
     private HashSet<String> clinSigs = new HashSet<>();
@@ -70,7 +69,7 @@ public class VEPAnnotationv82 {
             }
             if (!fields[10].equals("")) {
                 String[] subFields = fields[10].split(":");
-                this.hgvsCoding = subFields[1];
+                this.hgvsc = subFields[1];
             }
             if (!fields[11].equals("")) {
                 String[] subFields = fields[11].split(":");
@@ -78,9 +77,9 @@ public class VEPAnnotationv82 {
                 if (subFields[1].contains("(") && subFields[1].contains(")")){
                     subFields = subFields[1].split("\\(");
                     subFields = subFields[1].split("\\)");
-                    if (subFields[0].equals("p.%3D")) this.hgvsProtein = "p.="; else this.hgvsProtein = subFields[0];
+                    if (subFields[0].equals("p.%3D")) this.hgvsp = "p.="; else this.hgvsp = subFields[0];
                 } else {
-                    if (subFields[1].equals("p.%3D")) this.hgvsProtein = "p.="; else this.hgvsProtein = subFields[1];
+                    if (subFields[1].equals("p.%3D")) this.hgvsp = "p.="; else this.hgvsp = subFields[1];
                 }
             }
             if (!fields[12].equals("")) {
@@ -231,6 +230,12 @@ public class VEPAnnotationv82 {
 
     }
 
+    public boolean isCanonical() {
+        return canonical;
+    }
+    public int getStrand() {
+        return strand;
+    }
     public String getAllele() {
         return allele;
     }
@@ -258,11 +263,11 @@ public class VEPAnnotationv82 {
     public String getIntron() {
         return intron;
     }
-    public String getHgvsCoding() {
-        return hgvsCoding;
+    public String getHgvsc() {
+        return hgvsc;
     }
-    public String getHgvsProtein() {
-        return hgvsProtein;
+    public String getHgvsp() {
+        return hgvsp;
     }
     public String getCdnaPosition() {
         return cdnaPosition;
@@ -285,17 +290,11 @@ public class VEPAnnotationv82 {
     public String getDistance() {
         return distance;
     }
-    public int getStrand() {
-        return strand;
-    }
     public String getSymbolSource() {
         return symbolSource;
     }
     public String getHgncId() {
         return hgncId;
-    }
-    public boolean isCanonical() {
-        return canonical;
     }
     public String getTsl() {
         return tsl;
@@ -320,9 +319,6 @@ public class VEPAnnotationv82 {
     }
     public String getPolyPhen() {
         return polyPhen;
-    }
-    public HashMap<String, HashSet<String>> getDomains() {
-        return domains;
     }
     public String getgMaf() {
         return gMaf;
@@ -351,9 +347,6 @@ public class VEPAnnotationv82 {
     public String getSomatic() {
         return somatic;
     }
-    public HashSet<String> getPubmedIds() {
-        return pubmedIds;
-    }
     public String getMotifName() {
         return motifName;
     }
@@ -366,12 +359,6 @@ public class VEPAnnotationv82 {
     public String getMotifScoreChange() {
         return motifScoreChange;
     }
-    public HashSet<String> getConsequences() {
-        return consequences;
-    }
-    public HashSet<String> getClinSigs() {
-        return clinSigs;
-    }
     public String getVariantClass() {
         return variantClass;
     }
@@ -383,5 +370,137 @@ public class VEPAnnotationv82 {
     }
     public String getPheno() {
         return pheno;
+    }
+    public HashMap<String, HashSet<String>> getDomains() {
+        return domains;
+    }
+    public HashSet<String> getPubmedIds() {
+        return pubmedIds;
+    }
+    public HashSet<String> getConsequences() {
+        return consequences;
+    }
+    public HashSet<String> getClinSigs() {
+        return clinSigs;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        VEPAnnotationv82 that = (VEPAnnotationv82) o;
+
+        if (canonical != that.canonical) return false;
+        if (strand != that.strand) return false;
+        if (allele != null ? !allele.equals(that.allele) : that.allele != null) return false;
+        if (impact != null ? !impact.equals(that.impact) : that.impact != null) return false;
+        if (symbol != null ? !symbol.equals(that.symbol) : that.symbol != null) return false;
+        if (gene != null ? !gene.equals(that.gene) : that.gene != null) return false;
+        if (featureType != null ? !featureType.equals(that.featureType) : that.featureType != null) return false;
+        if (feature != null ? !feature.equals(that.feature) : that.feature != null) return false;
+        if (biotype != null ? !biotype.equals(that.biotype) : that.biotype != null) return false;
+        if (exon != null ? !exon.equals(that.exon) : that.exon != null) return false;
+        if (intron != null ? !intron.equals(that.intron) : that.intron != null) return false;
+        if (hgvsc != null ? !hgvsc.equals(that.hgvsc) : that.hgvsc != null) return false;
+        if (hgvsp != null ? !hgvsp.equals(that.hgvsp) : that.hgvsp != null) return false;
+        if (cdnaPosition != null ? !cdnaPosition.equals(that.cdnaPosition) : that.cdnaPosition != null) return false;
+        if (cdsPosition != null ? !cdsPosition.equals(that.cdsPosition) : that.cdsPosition != null) return false;
+        if (proteinPosition != null ? !proteinPosition.equals(that.proteinPosition) : that.proteinPosition != null)
+            return false;
+        if (aminoAcids != null ? !aminoAcids.equals(that.aminoAcids) : that.aminoAcids != null) return false;
+        if (codons != null ? !codons.equals(that.codons) : that.codons != null) return false;
+        if (existingVariation != null ? !existingVariation.equals(that.existingVariation) : that.existingVariation != null)
+            return false;
+        if (distance != null ? !distance.equals(that.distance) : that.distance != null) return false;
+        if (symbolSource != null ? !symbolSource.equals(that.symbolSource) : that.symbolSource != null) return false;
+        if (hgncId != null ? !hgncId.equals(that.hgncId) : that.hgncId != null) return false;
+        if (tsl != null ? !tsl.equals(that.tsl) : that.tsl != null) return false;
+        if (ccds != null ? !ccds.equals(that.ccds) : that.ccds != null) return false;
+        if (ensp != null ? !ensp.equals(that.ensp) : that.ensp != null) return false;
+        if (swissprot != null ? !swissprot.equals(that.swissprot) : that.swissprot != null) return false;
+        if (trembl != null ? !trembl.equals(that.trembl) : that.trembl != null) return false;
+        if (uniparc != null ? !uniparc.equals(that.uniparc) : that.uniparc != null) return false;
+        if (sift != null ? !sift.equals(that.sift) : that.sift != null) return false;
+        if (polyPhen != null ? !polyPhen.equals(that.polyPhen) : that.polyPhen != null) return false;
+        if (gMaf != null ? !gMaf.equals(that.gMaf) : that.gMaf != null) return false;
+        if (afrMaf != null ? !afrMaf.equals(that.afrMaf) : that.afrMaf != null) return false;
+        if (amrMaf != null ? !amrMaf.equals(that.amrMaf) : that.amrMaf != null) return false;
+        if (easMaf != null ? !easMaf.equals(that.easMaf) : that.easMaf != null) return false;
+        if (eurMaf != null ? !eurMaf.equals(that.eurMaf) : that.eurMaf != null) return false;
+        if (sasMaf != null ? !sasMaf.equals(that.sasMaf) : that.sasMaf != null) return false;
+        if (aaMaf != null ? !aaMaf.equals(that.aaMaf) : that.aaMaf != null) return false;
+        if (eaMaf != null ? !eaMaf.equals(that.eaMaf) : that.eaMaf != null) return false;
+        if (somatic != null ? !somatic.equals(that.somatic) : that.somatic != null) return false;
+        if (motifName != null ? !motifName.equals(that.motifName) : that.motifName != null) return false;
+        if (motifPos != null ? !motifPos.equals(that.motifPos) : that.motifPos != null) return false;
+        if (highInfPos != null ? !highInfPos.equals(that.highInfPos) : that.highInfPos != null) return false;
+        if (motifScoreChange != null ? !motifScoreChange.equals(that.motifScoreChange) : that.motifScoreChange != null)
+            return false;
+        if (variantClass != null ? !variantClass.equals(that.variantClass) : that.variantClass != null) return false;
+        if (genePheno != null ? !genePheno.equals(that.genePheno) : that.genePheno != null) return false;
+        if (hgvsOffset != null ? !hgvsOffset.equals(that.hgvsOffset) : that.hgvsOffset != null) return false;
+        if (pheno != null ? !pheno.equals(that.pheno) : that.pheno != null) return false;
+        if (domains != null ? !domains.equals(that.domains) : that.domains != null) return false;
+        if (pubmedIds != null ? !pubmedIds.equals(that.pubmedIds) : that.pubmedIds != null) return false;
+        if (consequences != null ? !consequences.equals(that.consequences) : that.consequences != null) return false;
+        return clinSigs != null ? clinSigs.equals(that.clinSigs) : that.clinSigs == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (canonical ? 1 : 0);
+        result = 31 * result + strand;
+        result = 31 * result + (allele != null ? allele.hashCode() : 0);
+        result = 31 * result + (impact != null ? impact.hashCode() : 0);
+        result = 31 * result + (symbol != null ? symbol.hashCode() : 0);
+        result = 31 * result + (gene != null ? gene.hashCode() : 0);
+        result = 31 * result + (featureType != null ? featureType.hashCode() : 0);
+        result = 31 * result + (feature != null ? feature.hashCode() : 0);
+        result = 31 * result + (biotype != null ? biotype.hashCode() : 0);
+        result = 31 * result + (exon != null ? exon.hashCode() : 0);
+        result = 31 * result + (intron != null ? intron.hashCode() : 0);
+        result = 31 * result + (hgvsc != null ? hgvsc.hashCode() : 0);
+        result = 31 * result + (hgvsp != null ? hgvsp.hashCode() : 0);
+        result = 31 * result + (cdnaPosition != null ? cdnaPosition.hashCode() : 0);
+        result = 31 * result + (cdsPosition != null ? cdsPosition.hashCode() : 0);
+        result = 31 * result + (proteinPosition != null ? proteinPosition.hashCode() : 0);
+        result = 31 * result + (aminoAcids != null ? aminoAcids.hashCode() : 0);
+        result = 31 * result + (codons != null ? codons.hashCode() : 0);
+        result = 31 * result + (existingVariation != null ? existingVariation.hashCode() : 0);
+        result = 31 * result + (distance != null ? distance.hashCode() : 0);
+        result = 31 * result + (symbolSource != null ? symbolSource.hashCode() : 0);
+        result = 31 * result + (hgncId != null ? hgncId.hashCode() : 0);
+        result = 31 * result + (tsl != null ? tsl.hashCode() : 0);
+        result = 31 * result + (ccds != null ? ccds.hashCode() : 0);
+        result = 31 * result + (ensp != null ? ensp.hashCode() : 0);
+        result = 31 * result + (swissprot != null ? swissprot.hashCode() : 0);
+        result = 31 * result + (trembl != null ? trembl.hashCode() : 0);
+        result = 31 * result + (uniparc != null ? uniparc.hashCode() : 0);
+        result = 31 * result + (sift != null ? sift.hashCode() : 0);
+        result = 31 * result + (polyPhen != null ? polyPhen.hashCode() : 0);
+        result = 31 * result + (gMaf != null ? gMaf.hashCode() : 0);
+        result = 31 * result + (afrMaf != null ? afrMaf.hashCode() : 0);
+        result = 31 * result + (amrMaf != null ? amrMaf.hashCode() : 0);
+        result = 31 * result + (easMaf != null ? easMaf.hashCode() : 0);
+        result = 31 * result + (eurMaf != null ? eurMaf.hashCode() : 0);
+        result = 31 * result + (sasMaf != null ? sasMaf.hashCode() : 0);
+        result = 31 * result + (aaMaf != null ? aaMaf.hashCode() : 0);
+        result = 31 * result + (eaMaf != null ? eaMaf.hashCode() : 0);
+        result = 31 * result + (somatic != null ? somatic.hashCode() : 0);
+        result = 31 * result + (motifName != null ? motifName.hashCode() : 0);
+        result = 31 * result + (motifPos != null ? motifPos.hashCode() : 0);
+        result = 31 * result + (highInfPos != null ? highInfPos.hashCode() : 0);
+        result = 31 * result + (motifScoreChange != null ? motifScoreChange.hashCode() : 0);
+        result = 31 * result + (variantClass != null ? variantClass.hashCode() : 0);
+        result = 31 * result + (genePheno != null ? genePheno.hashCode() : 0);
+        result = 31 * result + (hgvsOffset != null ? hgvsOffset.hashCode() : 0);
+        result = 31 * result + (pheno != null ? pheno.hashCode() : 0);
+        result = 31 * result + (domains != null ? domains.hashCode() : 0);
+        result = 31 * result + (pubmedIds != null ? pubmedIds.hashCode() : 0);
+        result = 31 * result + (consequences != null ? consequences.hashCode() : 0);
+        result = 31 * result + (clinSigs != null ? clinSigs.hashCode() : 0);
+        return result;
     }
 }
