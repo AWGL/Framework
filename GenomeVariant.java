@@ -80,6 +80,12 @@ public class GenomeVariant {
     public String getConcatenatedVariant(){
         return contig + ":" + Integer.toString(pos) + ref + ">" + alt;
     }
+    public boolean isSnp(){
+        return (ref.length() == 1 && alt.length() == 1);
+    }
+    public boolean isIndel(){
+        return (ref.length() != 1 || alt.length() != 1);
+    }
 
     @Override
     public boolean equals(Object o) {
