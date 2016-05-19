@@ -1,7 +1,11 @@
-package nhs.genetics.cardiff;
+package nhs.genetics.cardiff.framework;
 
 /**
- * Created by msl on 30/12/2014.
+ * A class for chromosomal changes.
+ *
+ * @author  Matt Lyon
+ * @version 1.0
+ * @since   2016-05-09
  */
 public class GenomeVariant {
 
@@ -77,9 +81,6 @@ public class GenomeVariant {
     public int getPos(){
         return pos;
     }
-    public String getConcatenatedVariant(){
-        return contig + ":" + Integer.toString(pos) + ref + ">" + alt;
-    }
     public boolean isSnp(){
         return (ref.length() == 1 && alt.length() == 1);
     }
@@ -97,7 +98,7 @@ public class GenomeVariant {
         if (pos != that.pos) return false;
         if (contig != null ? !contig.equals(that.contig) : that.contig != null) return false;
         if (ref != null ? !ref.equals(that.ref) : that.ref != null) return false;
-        return !(alt != null ? !alt.equals(that.alt) : that.alt != null);
+        return alt != null ? alt.equals(that.alt) : that.alt == null;
 
     }
 
@@ -108,5 +109,10 @@ public class GenomeVariant {
         result = 31 * result + (alt != null ? alt.hashCode() : 0);
         result = 31 * result + pos;
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return contig + ":" + Integer.toString(pos) + ref + ">" + alt;
     }
 }
