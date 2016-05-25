@@ -6,9 +6,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by ml on 17/06/2015.
+ * A class for parsing variant effect predictor v82 annotations
+ *
+ * @author  Matt Lyon
+ * @version 1.0
+ * @since   2015-06-17
  */
-
 public class VEPAnnotationv82 {
 
     private static final Logger log = Logger.getLogger(VEPAnnotationv82.class.getName());

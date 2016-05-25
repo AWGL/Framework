@@ -1,4 +1,4 @@
-package nhs.genetics.cardiff.framework;
+package nhs.genetics.cardiff;
 
 /**
  * A class for chromosomal changes.
