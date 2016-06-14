@@ -5,7 +5,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by ml on 13/01/2016.
+ * Parser for GTF files
+ *
+ * @author  Matt Lyon
+ * @version 1.0
+ * @since   2016-01-13
  */
 public class GFF3Record {
 

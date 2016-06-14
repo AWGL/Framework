@@ -10,7 +10,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by ml on 07/01/2016.
+ * Parser for GATK depth of coverage output
+ *
+ * @author  Matt Lyon
+ * @version 1.0
+ * @since   2016-01-07
  */
 public class GatkDepthOfCoverageParser {
 

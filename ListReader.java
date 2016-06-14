@@ -10,8 +10,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by msl on 26/02/2015.
+ * Helper class for reading lists
+ *
+ * @author  Matt Lyon
+ * @version 1.0
+ * @since   2015-02-26
  */
+
 public class ListReader {
 
     private static final Logger log = Logger.getLogger(ListReader.class.getName());

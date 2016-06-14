@@ -5,8 +5,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by ml on 13/10/2015.
+ * Parser for GTF files
+ *
+ * @author  Matt Lyon
+ * @version 1.0
+ * @since   2015-10-13
  */
+
 public class GTFRecord {
 
     private static final Logger log = Logger.getLogger(GTFRecord.class.getName());
