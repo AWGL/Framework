@@ -1,4 +1,4 @@
-package nhs.genetics.cardiff;
+package nhs.genetics.cardiff.framework;
 
 import java.util.HashSet;
 import java.util.logging.Level;

@@ -1,4 +1,4 @@
-package nhs.genetics.cardiff;
+package nhs.genetics.cardiff.framework;
 
 import java.io.BufferedReader;
 import java.io.File;

@@ -1,4 +1,4 @@
-package nhs.genetics.cardiff;
+package nhs.genetics.cardiff.framework;
 
 /**
  * Created by msl on 14/01/2015.

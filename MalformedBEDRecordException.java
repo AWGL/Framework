@@ -1,4 +1,4 @@
-package nhs.genetics.cardiff;
+package nhs.genetics.cardiff.framework;
 
 /**
  * A class for running bedtools functions http://bedtools.readthedocs.io/en/latest
