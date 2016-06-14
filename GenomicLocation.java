@@ -6,7 +6,11 @@ import java.util.Comparator;
 import java.util.logging.Logger;
 
 /**
- * Created by msl on 05/02/2015.
+ * A class for representing genomic regions
+ *
+ * @author  Matt Lyon
+ * @version 1.0
+ * @since   2015-02-05
  */
 public class GenomicLocation {
 
