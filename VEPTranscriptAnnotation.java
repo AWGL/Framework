@@ -3,7 +3,11 @@ package nhs.genetics.cardiff.framework;
 import java.util.HashSet;
 
 /**
- * Created by msl on 30/12/2014.
+ * Class for holding VEP transcript annotations
+ *
+ * @author  Matt Lyon
+ * @version 1.0
+ * @since   2014-12-30
  */
 
 public class VEPTranscriptAnnotation {

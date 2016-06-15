@@ -1,11 +1,13 @@
 package nhs.genetics.cardiff.framework;
 
-import java.io.File;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by msl on 26/01/2015.
+ * A class for storing Illumina sample sheet rows
+ *
+ * @author  Matt Lyon
+ * @version 1.0
+ * @since   2015-01-26
  */
 public class IlluminaSampleSheetRecord {
 

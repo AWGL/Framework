@@ -11,10 +11,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
-/*
- * Created by msl on 03/12/2014.
+/**
  * Class to hold and manage VCF file parsing
-*/
+ *
+ * @author  Matt Lyon
+ * @version 1.0
+ * @since   2014-12-03
+ */
 
 public class VCFFile {
 
@@ -52,7 +55,7 @@ public class VCFFile {
         //iterate down the VCF body
         for (String line : bodyLines)
         {
-            VCFRecord record = new VCFRecord(line, hasGenotypes, columnHeaders);
+            nhs.genetics.cardiff.framework.VCFRecord record = new VCFRecord(line, hasGenotypes, columnHeaders);
             record.parseVCFRecord();
             VCFRecords.add(record);
         }

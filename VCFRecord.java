@@ -5,9 +5,12 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
- * Created by msl on 03/12/2014.
+/**
  * Class to represent a single record of a multi-sample VCF
+ *
+ * @author  Matt Lyon
+ * @version 1.0
+ * @since   2014-12-03
  */
 
 public class VCFRecord {
@@ -109,7 +112,7 @@ public class VCFRecord {
         return genomeVariant;
     }
     public String getGenomeVariantAsString(){
-        return genomeVariant.getConcatenatedVariant();
+        return genomeVariant.toString();
     }
     public String getId (){
         return id;

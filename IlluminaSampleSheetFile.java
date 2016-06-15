@@ -3,18 +3,21 @@ package nhs.genetics.cardiff.framework;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.text.DateFormat;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 /**
- * Created by msl on 26/01/2015.
+ * A class for parsing Illumina sample sheets
+ *
+ * @author  Matt Lyon
+ * @version 1.0
+ * @since   2015-01-26
  */
 public class IlluminaSampleSheetFile {
 
@@ -24,16 +27,17 @@ public class IlluminaSampleSheetFile {
     private int IEMFileVersion, cyclesRead1, cyclesRead2;
     private Date date = new Date();
     private String investigatorName, experimentName, workflow, application, assay, description, chemistry;
-    private ArrayList<IlluminaSampleSheetRecord> sampleSheetRecords = new ArrayList<IlluminaSampleSheetRecord>();
+    private ArrayList<IlluminaSampleSheetRecord> sampleSheetRecords = new ArrayList<>();
     private HashMap<String, ArrayList<String>> sampleSheetSections = new HashMap<String, ArrayList<String>>();
     private HashMap<String, String> manifests = new HashMap<String, String>();
     private HashMap<String, String> settings = new HashMap<String, String>();
+    private final SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
     public IlluminaSampleSheetFile(File filePath){
         this.filePath = filePath;
     }
 
-    public void parseSampleSheet(){
+    public void parseSampleSheet() throws IOException {
 
         String line, header = "";
 
@@ -61,8 +65,6 @@ public class IlluminaSampleSheetFile {
             }
 
             sampleSheetReader.close();
-        } catch (Exception e) {
-            log.log(Level.SEVERE, "Problem reading sample sheet: " + e.getMessage());
         }
     }
     public void populateSampleSheetValues(){
@@ -82,7 +84,6 @@ public class IlluminaSampleSheetFile {
                     } else if (fields[0].equals("Date")){
 
                         try {
-                            DateFormat format = new SimpleDateFormat("dd/mm/yyyy", Locale.ENGLISH);
                             date = format.parse(fields[1]);
                         } catch (Exception e){
                             log.log(Level.SEVERE, "Could not convert data string: " + e.getMessage());
@@ -128,7 +129,7 @@ public class IlluminaSampleSheetFile {
 
                 if (n == 0){
                     cyclesRead1 = Integer.parseInt(fields[0]);
-                } else if (n == 2) {
+                } else if (n == 1) {
                     cyclesRead2 = Integer.parseInt(fields[0]);
                 }
 

@@ -1,9 +1,12 @@
 package nhs.genetics.cardiff.framework;
 
 /**
- * Created by matt on 12/03/15.
+ * Exception for unexpected VEP output
+ *
+ * @author  Matt Lyon
+ * @version 1.0
+ * @since   2015-03-12
  */
-
 public class MalformedVEPFileException extends RuntimeException {
 
     public MalformedVEPFileException(String message) {

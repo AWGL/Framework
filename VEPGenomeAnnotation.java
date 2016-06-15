@@ -4,7 +4,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by msl on 30/12/2014.
+ * Class for holding VEP genome annotations
+ *
+ * @author  Matt Lyon
+ * @version 1.0
+ * @since   2014-12-30
  */
 public class VEPGenomeAnnotation {
 

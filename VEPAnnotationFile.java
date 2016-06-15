@@ -9,7 +9,8 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 /**
- * Created by msl on 28/12/2014.
+ * Class to parse VEP output
+ *
  * VEP annotation file created using this commands:
  * perl /home/msl/ensembl-tools-release-75/scripts/variant_effect_predictor/variant_effect_predictor.pl \
  * -i "$1" \
@@ -27,6 +28,10 @@ import java.util.regex.Pattern;
  * --maf_1kg \
  * --maf_esp \
  *--fields Uploaded_variation,Location,Allele,AFR_MAF,AMR_MAF,ASN_MAF,EUR_MAF,AA_MAF,EA_MAF,Consequence,SYMBOL,Feature,HGVSc,HGVSp,PolyPhen,SIFT,EXON,INTRON
+ *
+ * @author  Matt Lyon
+ * @since   2014-12-28
+ * @version 1.0
  */
 
 public class VEPAnnotationFile {

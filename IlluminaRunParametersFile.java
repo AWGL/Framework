@@ -7,18 +7,20 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by msl on 27/01/2015.
+ * A program for reporting Illumina sequencing audits
+ *
+ * @author  Matt Lyon
+ * @version 1.0
+ * @since   2015-01-27
  */
+
 public class IlluminaRunParametersFile {
 
     private static final Logger log = Logger.getLogger(IlluminaRunParametersFile.class.getName());
@@ -28,8 +30,8 @@ public class IlluminaRunParametersFile {
             applicationName, runIdentifier, FPGAVersion, RTAVersion, reagentKitBarcode, scannerID;
     private Date flowcellExpireDate, pr2ExpireDate, reagentExpireDate, runStartDate;
 
-    private DateFormat basicFormat = new SimpleDateFormat("yymmdd", Locale.ENGLISH);
-    private DateFormat expiryFormat = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
+    private SimpleDateFormat basicFormat = new SimpleDateFormat("yyMMdd");
+    private SimpleDateFormat expiryFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public IlluminaRunParametersFile(File runParametersFile){
         this.runParametersFile = runParametersFile;
@@ -76,13 +78,12 @@ public class IlluminaRunParametersFile {
         String[] split;
 
         split = searchXmlFile("FlowcellRFIDTag", "SerialNumber", runParametersFile).split("-");
-        //flowcellSerialNo = split[1];
-        flowcellSerialNo = "";
+        flowcellSerialNo = split[1];
         flowcellPartNo = searchXmlFile("FlowcellRFIDTag", "PartNumber", runParametersFile);
         split = searchXmlFile("FlowcellRFIDTag", "ExpirationDate", runParametersFile).split("T");
 
         try {
-            flowcellExpireDate = basicFormat.parse(split[0]);
+            flowcellExpireDate = expiryFormat.parse(split[0]);
         } catch (Exception e){
             log.log(Level.SEVERE, "Could not convert data string: " + e.getMessage());
         }
