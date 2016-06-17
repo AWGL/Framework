@@ -5,7 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Parser for GTF files
+ * Parser for GFF3 files
  *
  * @author  Matt Lyon
  * @version 1.0

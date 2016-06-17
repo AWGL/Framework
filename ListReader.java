@@ -28,7 +28,7 @@ public class ListReader {
         this.filePath = filePath;
     }
 
-    public void parseListReader(){
+    public void parseListReader() throws IOException {
         log.log(Level.INFO, "Parsing list");
 
         String line;
@@ -41,9 +41,8 @@ public class ListReader {
             }
 
             bReader.close();
-        } catch (IOException e){
-            log.log(Level.SEVERE, "Problem reading list: " + e.getMessage());
         }
+
     }
 
     public ArrayList<String> getElements() {
