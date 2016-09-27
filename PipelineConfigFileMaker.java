@@ -16,7 +16,7 @@ public class PipelineConfigFileMaker {
 
     private static final Logger log = Logger.getLogger(PipelineConfigFileMaker.class.getName());
 
-    public static void makeIlluminaConfigFile(IlluminaSampleSheetFile illuminaSampleSheetFile, IlluminaRunParametersFile illuminaRunParametersFile)
+    public static void makeIlluminaConfigFile(IlluminaSampleSheetFile illuminaSampleSheetFile, String seqId) throws IOException
     {
         log.log(Level.INFO, "Writing variable files...");
 
@@ -31,19 +31,19 @@ public class PipelineConfigFileMaker {
                 writer.print("sampleId=" + illuminaSampleSheetFile.getSampleSheetRecords().get(n).getSampleID() + "\n");
 
                 writer.print("\n#Run Details\n");
-                writer.print("seqId=" + illuminaRunParametersFile.getRunIdentifier() + "\n");
+                writer.print("seqId=" + seqId + "\n");
                 writer.print("platform=ILLUMINA\n");
                 writer.print("worklistId=\"" + illuminaSampleSheetFile.getSampleSheetRecords().get(n).getSamplePlate() + "\"\n");
 
                 writer.print("\n#Sample Descriptors\n");
                 for (String field : illuminaSampleSheetFile.getSampleSheetRecords().get(n).getDescription().split(";")){
-                    writer.print(field + "\n");
+                    if (field.contains("=")){
+                        writer.print(field + "\n");
+                    }
                 }
 
                 writer.close();
 
-            } catch (IOException e){
-                log.log(Level.SEVERE, "Could not write variables file: " + e.getMessage());
             }
         }
 
