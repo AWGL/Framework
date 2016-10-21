@@ -11,24 +11,27 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by msl on 05/02/2015.
+ * BED file parser
+ *
+ * @author  Matt Lyon
+ * @version 1.0
+ * @since   2015-02-05
  */
 public class BEDFile {
 
     private static final Logger log = Logger.getLogger(BEDFile.class.getName());
-    private MalformedBEDRecordException malformedBEDRecordException = new MalformedBEDRecordException("Malformed BED file, check number of columns.");
 
     private File filePath;
     private ArrayList<GenomicLocation> bedRecords = new ArrayList<GenomicLocation>();
     private HashMap<GenomicLocation, HashSet<String>> totalTargetBases = new HashMap<GenomicLocation, HashSet<String>>();
     private int start, end;
-    private GenomicLocation loc;
-    private String chrom;
+    private GenomicLocation genomicLocation;
+    private String contig;
 
     public BEDFile(File filePath) {
         this.filePath = filePath;
     }
-    public void parseBED(){
+    public void parseBED() throws MalformedBEDRecordException {
 
         log.log(Level.INFO, "Parsing BED File: " + filePath);
 
@@ -43,28 +46,28 @@ public class BEDFile {
                     String[] fields = line.split("\t");
 
                     if (fields.length < 3 || fields.length > 12){
-                        throw malformedBEDRecordException;
+                        throw new MalformedBEDRecordException("Malformed BED file, check number of columns.");
                     }
 
-                    chrom = fields[0];
+                    contig = fields[0];
                     start = Integer.parseInt(fields[1]);
                     end = Integer.parseInt(fields[2]);
 
                     if (start < end){
                         if (fields.length == 4){
-                            loc = new GenomicLocation(chrom, start, end, fields[3]);
+                            genomicLocation = new GenomicLocation(contig, start, end, fields[3]);
                         } else {
-                            loc = new GenomicLocation(chrom, start, end);
+                            genomicLocation = new GenomicLocation(contig, start, end);
                         }
                     } else {
                         if (fields.length == 4){
-                            loc = new GenomicLocation(chrom, end, start, fields[3]);
+                            genomicLocation = new GenomicLocation(contig, end, start, fields[3]);
                         } else {
-                            loc = new GenomicLocation(chrom, end, start);
+                            genomicLocation = new GenomicLocation(contig, end, start);
                         }
                     }
 
-                    bedRecords.add(loc);
+                    bedRecords.add(genomicLocation);
                 }
 
             }
@@ -91,7 +94,7 @@ public class BEDFile {
         for (GenomicLocation locRecord : bedRecords) {
             for (int j = locRecord.getStartPosition(); j < locRecord.getEndPosition(); ++j){
 
-                GenomicLocation temp = new GenomicLocation(locRecord.getChromosome(), j);
+                GenomicLocation temp = new GenomicLocation(locRecord.getContig(), j);
 
                 //store unique bases from all regions
                 if (!totalTargetBases.containsKey(temp)) {

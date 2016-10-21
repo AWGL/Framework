@@ -217,4 +217,9 @@ public class GenomicLocation {
         result = 31 * result + strand;
         return result;
     }
+
+    @Override
+    public String toString(){
+        return contig + ":" + startPosition + "-" + endPosition;
+    }
 }
