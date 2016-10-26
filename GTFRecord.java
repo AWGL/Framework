@@ -69,6 +69,7 @@ public class GTFRecord {
 
         } catch (ArrayIndexOutOfBoundsException e){
             log.log(Level.INFO, "Incorrect field number: " + gtfRecord);
+            throw e;
         }
 
     }

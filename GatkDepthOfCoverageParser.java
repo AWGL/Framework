@@ -1,9 +1,6 @@
 package nhs.genetics.cardiff.framework;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -28,7 +25,7 @@ public class GatkDepthOfCoverageParser {
         this.gatkDepthOfCoverageFile = gatkDepthOfCoverageFile;
     }
 
-    public void parseGatkDepthOfCoverageFile(){
+    public void parseGatkDepthOfCoverageFile() throws IOException {
         log.log(Level.INFO, "Parsing GATK depth of coverage file");
 
         boolean passHeaderLine = false;
@@ -73,8 +70,6 @@ public class GatkDepthOfCoverageParser {
             }
 
             reader.close();
-        } catch (IOException e) {
-            log.log(Level.SEVERE, "Problem reading gatk depth of coverage file: " + e.getMessage());
         }
 
     }
