@@ -68,6 +68,7 @@ public class IlluminaRunParametersFile {
 
         } catch (Exception e) {
             log.log(Level.SEVERE, "Could not parse RunParameters.xml: " + e.getMessage());
+            throw new RuntimeException();
         }
 
         return "";

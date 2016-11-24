@@ -33,44 +33,44 @@ public class IlluminaSampleSheetRecord {
             //loop over column headers
             for (int n = 0; n < headers.length; ++n){
 
-                if (headers[n].equals("Sample_ID")) {
-                    sampleID = propertyFields[n];
+                if (headers[n].trim().equals("Sample_ID")) {
+                    sampleID = propertyFields[n].trim();
                 }
 
-                if (headers[n].equals("Sample_Name")){
-                    sampleName = propertyFields[n];
+                if (headers[n].trim().equals("Sample_Name")){
+                    sampleName = propertyFields[n].trim();
                 }
 
-                if (headers[n].equals("Sample_Plate")){
-                    samplePlate = propertyFields[n];
+                if (headers[n].trim().equals("Sample_Plate")){
+                    samplePlate = propertyFields[n].trim();
                 }
 
-                if (headers[n].equals("Sample_Well")){
-                    sampleWell = propertyFields[n];
+                if (headers[n].trim().equals("Sample_Well")){
+                    sampleWell = propertyFields[n].trim();
                 }
 
-                if (headers[n].equals("I7_Index_ID")){
-                    i7IndexID = propertyFields[n];
+                if (headers[n].trim().equals("I7_Index_ID")){
+                    i7IndexID = propertyFields[n].trim();
                 }
 
-                if (headers[n].equals("index")){
-                    index = propertyFields[n];
+                if (headers[n].trim().equals("index")){
+                    index = propertyFields[n].trim();
                 }
 
-                if (headers[n].equals("I5_Index_ID")){
-                    i5IndexID = propertyFields[n];
+                if (headers[n].trim().equals("I5_Index_ID")){
+                    i5IndexID = propertyFields[n].trim();
                 }
 
-                if (headers[n].equals("index2")){
-                    index2 = propertyFields[n];
+                if (headers[n].trim().equals("index2")){
+                    index2 = propertyFields[n].trim();
                 }
 
-                if (headers[n].equals("Sample_Project")){
-                    sampleProject = propertyFields[n];
+                if (headers[n].trim().equals("Sample_Project")){
+                    sampleProject = propertyFields[n].trim();
                 }
 
-                if (headers[n].equals("Description")){
-                    description = propertyFields[n];
+                if (headers[n].trim().equals("Description")){
+                    description = propertyFields[n].trim();
                 }
 
             }

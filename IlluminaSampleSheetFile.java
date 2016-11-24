@@ -55,9 +55,9 @@ public class IlluminaSampleSheetFile {
 
                     String[] subs1 = line.split("^\\[");
                     String[] subs2 = subs1[1].split("\\]");
-                    header = subs2[0];
+                    header = subs2[0].trim();
 
-                    sampleSheetSections.put(subs2[0], new ArrayList<String>());
+                    sampleSheetSections.put(subs2[0].trim(), new ArrayList<String>());
                     continue;
                 }
 
@@ -75,30 +75,30 @@ public class IlluminaSampleSheetFile {
                 String[] fields = line.split(",");
 
                 if (fields.length > 1){
-                    if (fields[0].equals(IEMFileVersion)){
-                        IEMFileVersion = Integer.parseInt(fields[1]);
-                    } else if (fields[0].equals("Investigator Name")){
-                        investigatorName = fields[1];
-                    } else if (fields[0].equals("Experiment Name")){
-                        experimentName = fields[1];
-                    } else if (fields[0].equals("Date")){
+                    if (fields[0].trim().equals("IEMFileVersion")){
+                        IEMFileVersion = Integer.parseInt(fields[1].trim());
+                    } else if (fields[0].trim().equals("Investigator Name")){
+                        investigatorName = fields[1].trim();
+                    } else if (fields[0].trim().equals("Experiment Name")){
+                        experimentName = fields[1].trim();
+                    } else if (fields[0].trim().equals("Date")){
 
                         try {
-                            date = format.parse(fields[1]);
+                            date = format.parse(fields[1].trim());
                         } catch (Exception e){
                             log.log(Level.SEVERE, "Could not convert data string: " + e.getMessage());
                         }
 
-                    } else if (fields[0].equals("Workflow")){
-                        workflow = fields[1];
-                    } else if (fields[0].equals("Application")){
-                        application = fields[1];
-                    } else if (fields[0].equals("Assay")){
-                        assay = fields[1];
-                    } else if (fields[0].equals("Description")){
-                        description = fields[1];
-                    } else if (fields[0].equals("Chemistry")) {
-                        chemistry = fields[1];
+                    } else if (fields[0].trim().equals("Workflow")){
+                        workflow = fields[1].trim();
+                    } else if (fields[0].trim().equals("Application")){
+                        application = fields[1].trim();
+                    } else if (fields[0].trim().equals("Assay")){
+                        assay = fields[1].trim();
+                    } else if (fields[0].trim().equals("Description")){
+                        description = fields[1].trim();
+                    } else if (fields[0].trim().equals("Chemistry")) {
+                        chemistry = fields[1].trim();
                     }
                 } else {
                     log.log(Level.WARNING, "Missing  value for " + fields[0] + " will be ignored.");
@@ -108,6 +108,7 @@ public class IlluminaSampleSheetFile {
 
         } else {
             log.log(Level.SEVERE, "Sample sheet is malformed. Header section missing.");
+            throw new RuntimeException();
         }
 
         if (sampleSheetSections.containsKey("Manifests")) {
@@ -115,7 +116,7 @@ public class IlluminaSampleSheetFile {
                 String[] fields = line.split(",");
 
                 if (fields.length > 1) {
-                    manifests.put(fields[0], fields[1]);
+                    manifests.put(fields[0].trim(), fields[1].trim());
                 } else {
                     log.log(Level.WARNING, "Missing  value for " + fields[0] + " will be ignored.");
                 }
@@ -141,7 +142,7 @@ public class IlluminaSampleSheetFile {
                 String[] fields = line.split(",");
 
                 if (fields.length > 1) {
-                    settings.put(fields[0], fields[1]);
+                    settings.put(fields[0].trim(), fields[1].trim());
                 } else {
                     log.log(Level.WARNING, "Missing  value for " + fields[0] + " will be ignored.");
                 }
